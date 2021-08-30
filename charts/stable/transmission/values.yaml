@@ -58,7 +58,7 @@ service:
     ports:
       http:
         port: 9091
-    type: ClusterIP
+    type: LoadBalancer
   utptcp:
     enabled: false
     type: ClusterIP
