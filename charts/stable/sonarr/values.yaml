@@ -60,7 +60,7 @@ probes:
 # @default -- See values.yaml
 persistence:
   config:
-    enabled: false
+    enabled: true
     size: 64Mi
 
   media:
