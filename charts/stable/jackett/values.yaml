@@ -37,7 +37,7 @@ ingress:
 # @default -- See values.yaml
 persistence:
   config:
-    enabled: false
+    enabled: true
 
   torrentblackhole:
     enabled: false
