@@ -30,7 +30,7 @@ service:
   main:
     ports:
       http:
-        port: 8080
+        port: 9090
   bittorrent:
     enabled: false
     type: ClusterIP
