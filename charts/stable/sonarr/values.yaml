@@ -61,6 +61,7 @@ probes:
 persistence:
   config:
     enabled: true
+    size: 64Mi    
 
   media:
     enabled: true
