@@ -64,10 +64,7 @@ persistence:
     size: 64Mi
 
   media:
-    enabled: true
-    accessMode: ReadWriteOnce
-    mountPath: /media
-    size: 1Gi
+    enabled: false
 
 exporter:
   # -- Enable and configure Exportarr sidecar and Prometheus podMonitor.
