@@ -1,6 +1,6 @@
 # home-assistant
 
-![Version: 10.0.0](https://img.shields.io/badge/Version-10.0.0-informational?style=flat-square) ![AppVersion: 2021.6.3](https://img.shields.io/badge/AppVersion-2021.6.3-informational?style=flat-square)
+![Version: 10.1.1](https://img.shields.io/badge/Version-10.1.1-informational?style=flat-square) ![AppVersion: 2021.6.3](https://img.shields.io/badge/AppVersion-2021.6.3-informational?style=flat-square)
 
 Home Assistant
 
@@ -21,8 +21,8 @@ Kubernetes: `>=1.16.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | https://charts.bitnami.com/bitnami | influxdb | 1.1.9 |
-| https://charts.bitnami.com/bitnami | mariadb | 9.3.19 |
-| https://charts.bitnami.com/bitnami | postgresql | 10.5.3 |
+| https://charts.bitnami.com/bitnami | mariadb | 9.4.4 |
+| https://charts.bitnami.com/bitnami | postgresql | 10.9.4 |
 | https://library-charts.k8s-at-home.com | common | 4.0.0 |
 
 ## TL;DR
@@ -71,6 +71,25 @@ helm install home-assistant k8s-at-home/home-assistant -f values.yaml
 ```
 
 ## Custom configuration
+
+### HTTP 400 bad request while accessing from your browser
+
+When configuring Home Assistant behind a reverse proxy make sure you configure the [http](https://www.home-assistant.io/integrations/http) component and set `trusted_proxies` correctly and `use_x_forwarded_for` to `true`.
+
+For example:
+
+```yaml
+http:
+  server_host: 0.0.0.0
+  ip_ban_enabled: true
+  login_attempts_threshold: 5
+  use_x_forwarded_for: true
+  trusted_proxies:
+  # Pod CIDR
+  - 10.69.0.0/16
+  # Node CIDR
+  - 192.168.42.0/24
+```
 
 ### Z-Wave / Zigbee
 

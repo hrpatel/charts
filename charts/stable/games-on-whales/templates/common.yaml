@@ -10,6 +10,14 @@ image:
 securityContext:
   privileged: true
 
+{{- if .Values.graphic_resources }}
+resources:
+  requests:
+    {{ .Values.graphic_resources | toYaml | nindent 4 }}
+  limits:
+    {{ .Values.graphic_resources | toYaml | nindent 4 }}
+{{- end }}
+
 env:
   DISPLAY: {{ .Values.xorg.display }}
   LOG_LEVEL: {{ .Values.sunshine.logLevel }}
@@ -18,6 +26,8 @@ env:
   SUNSHINE_USER: {{ .Values.sunshine.user }}
   GOW_REQUIRED_DEVICES: /dev/uinput /dev/input/event* /dev/dri/*
   XDG_RUNTIME_DIR: /tmp/.X11-unix
+  NVIDIA_DRIVER_CAPABILITIES: utility,video,graphics,display
+  NVIDIA_VISIBLE_DEVICES: all
   {{- if .Values.sunshine.env }}
   {{ .Values.sunshine.env | toYaml | nindent 2 }}
   {{- end }}
@@ -42,6 +52,13 @@ additionalContainers:
     imagePullPolicy: {{ .Values.xorg.image.pullPolicy }}
     securityContext:
       privileged: true
+    {{- if .Values.graphic_resources }}
+    resources:
+      requests:
+        {{ .Values.graphic_resources | toYaml | nindent 8 }}
+      limits:
+        {{ .Values.graphic_resources | toYaml | nindent 8 }}
+    {{- end }}
     env:
     - name: DISPLAY
       value: {{ .Values.xorg.display | quote }}
@@ -49,6 +66,10 @@ additionalContainers:
       value: {{ .Values.xorg.refreshrate | quote}}
     - name: RESOLUTION
       value: {{ .Values.xorg.resolution | quote }}
+    - name: NVIDIA_DRIVER_CAPABILITIES
+      value: all
+    - name: NVIDIA_VISIBLE_DEVICES
+      value: all
     volumeMounts:
     - name: dev-input
       mountPath: /dev/input
@@ -74,6 +95,13 @@ additionalContainers:
     imagePullPolicy: {{ .Values.retroarch.image.pullPolicy }}
     securityContext:
       privileged: true
+    {{- if .Values.graphic_resources }}
+    resources:
+      requests:
+        {{ .Values.graphic_resources | toYaml | nindent 8 }}
+      limits:
+        {{ .Values.graphic_resources | toYaml | nindent 8 }}
+    {{- end }}
     env:
     - name: DISPLAY
       value: {{ .Values.xorg.display | quote }}
@@ -83,6 +111,10 @@ additionalContainers:
       value: "/tmp/pulse/pulse-socket"
     - name: GOW_REQUIRED_DEVICES
       value: /dev/uinput /dev/input/event* /dev/dri/* /dev/snd/*
+    - name: NVIDIA_DRIVER_CAPABILITIES
+      value: all
+    - name: NVIDIA_VISIBLE_DEVICES
+      value: all
     volumeMounts:
     - name: audio-socket
       mountPath: /tmp/pulse
@@ -111,6 +143,13 @@ additionalContainers:
     imagePullPolicy: {{ .Values.steam.image.pullPolicy }}
     securityContext:
       privileged: true
+    {{- if .Values.graphic_resources }}
+    resources:
+      requests:
+        {{ .Values.graphic_resources | toYaml | nindent 8 }}
+      limits:
+        {{ .Values.graphic_resources | toYaml | nindent 8 }}
+    {{- end }}
     env:
     - name: DISPLAY
       value: {{ .Values.xorg.display | quote }}
@@ -118,6 +157,10 @@ additionalContainers:
       value: {{ .Values.steam.protonLog | quote }}
     - name: PULSE_SERVER
       value: "/tmp/pulse/pulse-socket"
+    - name: NVIDIA_DRIVER_CAPABILITIES
+      value: all
+    - name: NVIDIA_VISIBLE_DEVICES
+      value: all
     volumeMounts:
     - name: audio-socket
       mountPath: /tmp/pulse
@@ -151,6 +194,10 @@ additionalContainers:
       value: {{ .Values.firefox.logLevel | quote }}
     - name: PULSE_SERVER
       value: "/tmp/pulse/pulse-socket"
+    - name: NVIDIA_DRIVER_CAPABILITIES
+      value: all
+    - name: NVIDIA_VISIBLE_DEVICES
+      value: all
     volumeMounts:
     - name: audio-socket
       mountPath: /tmp/pulse
