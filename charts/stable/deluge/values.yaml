@@ -50,7 +50,7 @@ persistence:
     enabled: true
     type: custom
     volumeSpec:
-      cifs:
+      nfs:
         server: 192.168.18.10
-        path: /media/dl
+        path: /mnt/vol1/media/dl
     mountPath: /downloads
