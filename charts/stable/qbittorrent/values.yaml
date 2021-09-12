@@ -51,14 +51,19 @@ ingress:
 # @default -- See values.yaml
 persistence:
   config:
-    enabled: false
+    enabled: true
 
   media:
     enabled: false
     mountPath: /media
 
   downloads:
-    enabled: false
+    enabled: true
+    type: custom
+    volumeSpec:
+      nfs:
+        server: 192.168.18.10
+        path: /mnt/vol1/media/dl
     mountPath: /downloads
 
 exporter:
