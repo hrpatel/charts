@@ -27,8 +27,8 @@ env:
 # -- Configures service settings for the chart.
 # @default -- See values.yaml
 service:
-  type: LoadBalancer
   main:
+    type: LoadBalancer
     ports:
       http:
         port: 8080
