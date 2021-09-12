@@ -52,5 +52,5 @@ persistence:
     volumeSpec:
       nfs:
         server: 192.168.18.10
-        path: /
+        path: /media/dl
     mountPath: /downloads
