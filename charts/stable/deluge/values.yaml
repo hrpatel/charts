@@ -29,6 +29,7 @@ env:
 # @default -- See values.yaml
 service:
   main:
+    type: LoadBalancer
     ports:
       http:
         port: 8112
@@ -43,7 +44,7 @@ ingress:
 # @default -- See values.yaml
 persistence:
   config:
-    enabled: false
+    enabled: true
     mountPath: /config
   downloads:
     enabled: false
