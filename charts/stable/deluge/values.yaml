@@ -44,8 +44,13 @@ ingress:
 # @default -- See values.yaml
 persistence:
   config:
-    enabled: true
+    enabled: false
     mountPath: /config
   downloads:
-    enabled: false
+    enabled: true
+    type: custom
+    volumeSpec:
+      nfs:
+        server: 192.168.18.10
+        path: /
     mountPath: /downloads
