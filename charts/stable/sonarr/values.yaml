@@ -64,7 +64,13 @@ persistence:
     size: 64Mi
 
   media:
-    enabled: false
+    enabled: true
+    type: custom
+    volumeSpec:
+      nfs:
+        server: 192.168.18.10
+        path: /mnt/vol1/media/dl
+    mountPath: /media
 
 exporter:
   # -- Enable and configure Exportarr sidecar and Prometheus podMonitor.
