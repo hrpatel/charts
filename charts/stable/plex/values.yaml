@@ -36,6 +36,7 @@ env:
 # @default -- See values.yaml
 service:
   main:
+    type: LoadBalancer
     primary: true
     ports:
       http:
@@ -74,12 +75,18 @@ hostNetwork: false
 # @default -- See values.yaml
 persistence:
   config:
-    enabled: false
-    mountPath: /config
+    enabled: true
+    size: 10Gi
 
-  transcode:
-    enabled: false
-    mountPath: /transcode
+  media:
+    enabled: true
+    type: custom
+    volumeSpec:
+      nfs:
+        server: 192.168.18.10
+        path: /mnt/vol1/media/dl
+    mountPath: /media
+    readOnly: true
 
 # -- Configure the Security Context for the Pod
 podSecurityContext: {}
